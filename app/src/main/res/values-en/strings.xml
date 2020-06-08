@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Carros_material</string>
+    <string name="guardar">Save</string>
+    <string name="borrar">Clear</string>
+    <string name="motor">Engne</string>
+    <string name="titulo_agregar">ADD CAR</string>
+    <string name="placa">License plate</string>
+    <string name="color">Colour</string>
+    <string name="marca">Trademark</string>
+    <string name="modelo">Model</string>
+    <string name="motor_gas">Gas</string>
+    <string name="motor_diesel">Diesel</string>
+    <string name="motor_gasolina">Gasolina</string>
+</resources>
