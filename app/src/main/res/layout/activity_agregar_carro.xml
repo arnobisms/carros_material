@@ -58,10 +58,11 @@
             android:layout_width="238dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
             android:text="@string/motor" />
 
         <Spinner
-            android:id="@+id/lstMotor"
+            android:id="@+id/comboMotores"
             android:layout_width="277dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -78,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="guardar"
             android:text="@string/guardar" />
 
         <Button
@@ -86,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="limpiar"
             android:text="@string/borrar" />
     </LinearLayout>
 </LinearLayout>

@@ -7,10 +7,10 @@ public class Carro {
     private String color;
     private String marca;
     private String motor;
-    private int modelo;
+    private String modelo;
     private int foto;
 
-    public Carro(String placa, String color, String marca, String motor, int modelo, int foto){
+    public Carro(String placa, String color, String marca, String motor, String modelo, int foto){
         this.placa = placa;
         this.color = color;
         this.marca = marca;
@@ -43,11 +43,11 @@ public class Carro {
         this.marca = marca;
     }
 
-    public int getModelo() {
+    public String getModelo() {
         return modelo;
     }
 
-    public void setModelo(int modelo) {
+    public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 

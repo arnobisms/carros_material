@@ -20,6 +20,7 @@
     <string name="motor_gas">Gas</string>
     <string name="motor_gasolina">Gasolina</string>
     <string name="motor_diesel">Diesel</string>
+    <string name="mensaje_guardar">Carro guardado exitosamente</string>
     <string-array name="motores">
         <item>@string/motor_gasolina</item>
         <item>@string/motor_diesel</item>
