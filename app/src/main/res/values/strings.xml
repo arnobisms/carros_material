@@ -21,6 +21,12 @@
     <string name="motor_gasolina">Gasolina</string>
     <string name="motor_diesel">Diesel</string>
     <string name="mensaje_guardar">Carro guardado exitosamente</string>
+    <string name="titulo_detalle">DETALLE CARRO</string>
+    <string name="etiqueta_boton_eliminar">Eliminar</string>
+    <string name="eliminar_carro">Eliminar carro</string>
+    <string name="mensaje_eliminar_persona">¿Está seguro que desea eliminar este carro?</string>
+    <string name="opcion_si">Si</string>
+    <string name="opcion_no">No</string>
     <string-array name="motores">
         <item>@string/motor_gasolina</item>
         <item>@string/motor_diesel</item>

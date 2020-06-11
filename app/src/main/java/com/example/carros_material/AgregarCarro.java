@@ -28,6 +28,7 @@ public class AgregarCarro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_carro);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         placa = findViewById(R.id.txtPlaca);
         color = findViewById(R.id.txtColor);
