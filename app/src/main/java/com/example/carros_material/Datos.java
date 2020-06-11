@@ -1,14 +1,22 @@
 package com.example.carros_material;
 
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class Datos {
-
+    private static String db = "Carros";
+    private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private static ArrayList<Carro> carros = new ArrayList();
 
+    public static String getId(){
+        return databaseReference.push().getKey();
+    }
+
     public static void guardar(Carro c){
-        carros.add(c);
+        databaseReference.child(db).child(c.getId()).setValue(c);
     }
 
     public static ArrayList<Carro> obtener(){

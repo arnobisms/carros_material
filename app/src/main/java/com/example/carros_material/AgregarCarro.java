@@ -46,7 +46,7 @@ public class AgregarCarro extends AppCompatActivity {
     }
 
     public void guardar(View v){
-        String plac, col, marc, model, mot = "";
+        String plac, col, marc, model, mot = "", id;
         int foto, op;
         Carro carro;
         InputMethodManager imp = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -56,18 +56,22 @@ public class AgregarCarro extends AppCompatActivity {
         model = modelo.getText().toString();
         op = combo_motores.getSelectedItemPosition();
         foto = foto_aleatoria();
+        id = Datos.getId();
 
         if(op == 0){
             mot = "Gasolina";
-        }else if(op == 1){
-              mot = "Diesel";
-            }else if(op == 2){
-             mot = "Gas";
+        }else {
+            if (op == 1) {
+                mot = "Diesel";
+            } else{
+                 if (op == 2) {
+                    mot = "Gas";
+                 }
             }
+        }
 
 
-
-        carro = new Carro(plac, col, marc, mot, model, foto );
+        carro = new Carro(plac, col, marc, mot, model, foto, id);
         carro.guardar();
         limpiar();
         imp.hideSoftInputFromWindow(placa.getWindowToken(),0);

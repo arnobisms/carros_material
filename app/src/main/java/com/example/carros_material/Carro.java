@@ -9,6 +9,7 @@ public class Carro {
     private String motor;
     private String modelo;
     private int foto;
+    private String id;
 
     public Carro(String placa, String color, String marca, String motor, String modelo, int foto){
         this.placa = placa;
@@ -17,6 +18,24 @@ public class Carro {
         this.motor = motor;
         this.modelo = modelo;
         this.foto = foto;
+    }
+
+    public Carro(String placa, String color, String marca, String motor, String modelo, int foto, String id){
+        this.placa = placa;
+        this.color = color;
+        this.marca = marca;
+        this.motor = motor;
+        this.modelo = modelo;
+        this.foto = foto;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPlaca() {
