@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,6 +27,7 @@ public class AgregarCarro extends AppCompatActivity {
     private String[] motores;
     private ArrayAdapter<String> adapter;
     private ArrayList<Integer> fotos;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,10 @@ public class AgregarCarro extends AppCompatActivity {
         fotos.add(R.drawable.img1);
         fotos.add(R.drawable.img2);
         fotos.add(R.drawable.img3);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
     }
+
 
     public void guardar(View v){
         String plac, col, marc, model, mot = "", id;
@@ -73,11 +81,17 @@ public class AgregarCarro extends AppCompatActivity {
 
         carro = new Carro(plac, col, marc, mot, model, foto, id);
         carro.guardar();
+        subir_foto(id, foto);
         limpiar();
         imp.hideSoftInputFromWindow(placa.getWindowToken(),0);
         Snackbar.make(v,getString(R.string.mensaje_guardar), Snackbar.LENGTH_LONG).show();
     }
 
+    public void subir_foto(String id, int foto){
+        StorageReference child = storageReference.child(id);
+        Uri uri = Uri.parse("android.resource://"+R.class.getPackage().getName()+"/"+foto);
+        UploadTask uploadTask = child.putFile(uri);
+    }
     public int foto_aleatoria(){
         int foto_seleccionada;
         Random r = new Random();

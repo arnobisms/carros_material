@@ -1,6 +1,7 @@
 package com.example.carros_material;
 
 import android.icu.text.Transliterator;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -30,9 +36,18 @@ public class AdaptadorCarro extends RecyclerView.Adapter<AdaptadorCarro.CarroVie
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CarroViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CarroViewHolder holder, int position) {
         final Carro c = carros.get(position);
-        holder.foto.setImageResource(c.getFoto());
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+        storageReference.child(c.getId()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(holder.foto);
+            }
+        });
+
+
         holder.placa.setText(c.getPlaca());
         holder.color.setText(c.getColor());
         holder.marca.setText(c.getMarca());

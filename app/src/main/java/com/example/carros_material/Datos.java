@@ -3,12 +3,15 @@ package com.example.carros_material;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class Datos {
     private static String db = "Carros";
     private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private static StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private static ArrayList<Carro> carros = new ArrayList();
 
     public static String getId(){
@@ -28,12 +31,8 @@ public class Datos {
     }
 
     public static void eliminar(Carro c){
-        for (int i = 0; i < carros.size(); i++) {
-            if(carros.get(i).getPlaca().equals(c.getPlaca())){
-                carros.remove(i);
-                break;
-            }
-        }
+        databaseReference.child(db).child(c.getId()).removeValue();
+        storageReference.child(c.getId()).delete();
      }
 
 }

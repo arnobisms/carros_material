@@ -57,8 +57,7 @@
         <ImageView
             android:id="@+id/imgFotoDetalle"
             android:layout_width="176dp"
-            android:layout_height="163dp"
-            app:srcCompat="@drawable/img2" />
+            android:layout_height="163dp" />
 
         <TableLayout
             android:id="@+id/tblDetalle"

@@ -5,12 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class DetalleCarro extends AppCompatActivity {
     private Carro c;
@@ -21,12 +27,13 @@ public class DetalleCarro extends AppCompatActivity {
         setContentView(R.layout.activity_detalle_carro);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ImageView foto;
+        final ImageView foto;
         TextView placa, color, marca, motor, modelo;
         Bundle bundle;
         Intent intent;
-        String plac, col, marc, mot, model;
+        String id, plac, col, marc, mot, model;
         int fot;
+        StorageReference storageReference;
 
         foto = findViewById(R.id.imgFotoDetalle);
         placa = findViewById(R.id.lblPlacaDetalle);
@@ -38,7 +45,7 @@ public class DetalleCarro extends AppCompatActivity {
         intent = getIntent();
         bundle = intent.getBundleExtra("datos");
 
-        fot = bundle.getInt("foto");
+        id = bundle.getString("id");
         plac = bundle.getString("placa");
         col = bundle.getString("color");
         marc = bundle.getString("marca");
@@ -46,14 +53,20 @@ public class DetalleCarro extends AppCompatActivity {
         model = bundle.getString("modelo");
 
 
-        foto.setImageResource(fot);
+        storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference.child(id).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(foto);
+            }
+        });
         placa.setText(plac);
         color.setText(col);
         marca.setText(marc);
         motor.setText(mot);
         modelo.setText(model);
 
-        c = new Carro(plac, col, marc, mot, model, fot);
+        c = new Carro(plac, col, marc, mot, model, 0, id);
 
 
     }

@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdaptadorCarro.On
         bundle.putString("marca", c.getMarca());
         bundle.putString("motor", c.getMotor());
         bundle.putString("modelo", c.getModelo());
-        bundle.putInt("foto", c.getFoto());
+        bundle.putString("id", c.getId());
 
         intent = new Intent(MainActivity.this, DetalleCarro.class);
         intent.putExtra("datos", bundle);
