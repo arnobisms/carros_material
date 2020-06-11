@@ -23,6 +23,10 @@ public class Datos {
         return carros;
     }
 
+    public static void setCarros(ArrayList<Carro> carros){
+        carros = carros;
+    }
+
     public static void eliminar(Carro c){
         for (int i = 0; i < carros.size(); i++) {
             if(carros.get(i).getPlaca().equals(c.getPlaca())){

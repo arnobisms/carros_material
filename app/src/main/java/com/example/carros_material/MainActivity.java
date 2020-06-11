@@ -5,7 +5,13 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,13 +34,15 @@ public class MainActivity extends AppCompatActivity implements AdaptadorCarro.On
         setSupportActionBar(toolbar);
 
         RecyclerView lstCarros;
-        ArrayList<Carro> carros;
+        final ArrayList<Carro> carros;
         LinearLayoutManager llm;
         FloatingActionButton fab;
-        AdaptadorCarro adapter;
+        final AdaptadorCarro adapter;
+        DatabaseReference databaseReference;
+        String db = "Carros";
 
         lstCarros = findViewById(R.id.lstCarros);
-        carros = Datos.obtener();
+        carros = new ArrayList<>();
         llm = new LinearLayoutManager(this);
         adapter = new AdaptadorCarro(carros, this);
 
@@ -44,6 +52,27 @@ public class MainActivity extends AppCompatActivity implements AdaptadorCarro.On
 
         fab = findViewById(R.id.btnAgregar);
 
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child(db).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                carros.clear();
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot snapshot:  dataSnapshot.getChildren() ){
+                        Carro c = snapshot.getValue(Carro.class);
+                        carros.add(c);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                Datos.setCarros(carros);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void agregar(View v){
