@@ -1,18 +1,31 @@
 package com.example.carros_material;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements AdaptadorCarro.OnCarroClickListener{
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +34,51 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        RecyclerView lstCarros;
+        final ArrayList<Carro> carros;
+        LinearLayoutManager llm;
+        FloatingActionButton fab;
+        final AdaptadorCarro adapter;
+        DatabaseReference databaseReference;
+        String db = "Carros";
+
+        lstCarros = findViewById(R.id.lstCarros);
+        carros = new ArrayList<>();
+        llm = new LinearLayoutManager(this);
+        adapter = new AdaptadorCarro(carros, this);
+
+        llm.setOrientation(RecyclerView.VERTICAL);
+        lstCarros.setLayoutManager(llm);
+        lstCarros.setAdapter(adapter);
+
+        fab = findViewById(R.id.btnAgregar);
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child(db).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                carros.clear();
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot snapshot:  dataSnapshot.getChildren() ){
+                        Carro c = snapshot.getValue(Carro.class);
+                        carros.add(c);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                Datos.setCarros(carros);
+
+                Log.i("Tamaño de carros: "+carros.size(),"Tamaño");
+                Log.i("Obtener "+Datos.obtener().size(),"Obtener");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
+
 
 
     @Override
@@ -38,19 +87,31 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    public void agregar(View v){
+        Intent i;
+        i = new Intent(MainActivity.this, AgregarCarro.class);
+        startActivity(i);
+
+
+    }
+
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onCarroClick(Carro c) {
+        Intent intent;
+        Bundle bundle;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        bundle = new Bundle();
+        bundle.putString("placa", c.getPlaca());
+        bundle.putString("color", c.getColor());
+        bundle.putString("marca", c.getMarca());
+        bundle.putString("motor", c.getMotor());
+        bundle.putString("modelo", c.getModelo());
+        bundle.putString("id", c.getId());
 
-        return super.onOptionsItemSelected(item);
+        intent = new Intent(MainActivity.this, DetalleCarro.class);
+        intent.putExtra("datos", bundle);
+        startActivity(intent);
+
     }
 }

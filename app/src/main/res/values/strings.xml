@@ -9,4 +9,31 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="guardar">Guardar</string>
+    <string name="borrar">Borrar</string>
+    <string name="motor">Motor</string>
+    <string name="titulo_agregar">AGREGAR CARRO</string>
+    <string name="placa">Placa</string>
+    <string name="color">Color</string>
+    <string name="marca">Marca</string>
+    <string name="modelo">Modelo</string>
+    <string name="motor_gas">Gas</string>
+    <string name="motor_gasolina">Gasolina</string>
+    <string name="motor_diesel">Diesel</string>
+    <string name="mensaje_guardar">Carro guardado exitosamente</string>
+    <string name="titulo_detalle">DETALLE CARRO</string>
+    <string name="etiqueta_boton_eliminar">Eliminar</string>
+    <string name="eliminar_carro">Eliminar carro</string>
+    <string name="mensaje_eliminar_persona">¿Está seguro que desea eliminar este carro?</string>
+    <string name="opcion_si">Si</string>
+    <string name="opcion_no">No</string>
+    <string name="mensaje_error_placa">Digite la placa</string>
+    <string name="mensaje_error_color">Digite el color</string>
+    <string name="mensaje_error_marca">Digite la marca</string>
+    <string name="mensaje_error_modelo">Digite el modelo</string>
+    <string-array name="motores">
+        <item>@string/motor_gasolina</item>
+        <item>@string/motor_diesel</item>
+        <item>@string/motor_gas</item>
+    </string-array>
 </resources>
