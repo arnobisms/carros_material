@@ -12,4 +12,15 @@
     <string name="motor_gas">Gas</string>
     <string name="motor_diesel">Diesel</string>
     <string name="motor_gasolina">Gasolina</string>
+    <string name="mensaje_guardar">Car successfully saved</string>
+    <string name="titulo_detalle">" CAR DETAIL"</string>
+    <string name="etiqueta_boton_eliminar">Delete</string>
+    <string name="eliminar_carro">Delete car</string>
+    <string name="mensaje_eliminar_persona">Are you sure to delete the car?</string>
+    <string name="opcion_si">Yes</string>
+    <string name="opcion_no">No</string>
+    <string name="mensaje_error_placa">Type License plate</string>
+    <string name="mensaje_error_color">Type the colour</string>
+    <string name="mensaje_error_marca">Type trademark</string>
+    <string name="mensaje_error_modelo">Type model</string>
 </resources>

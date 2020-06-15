@@ -27,6 +27,10 @@
     <string name="mensaje_eliminar_persona">¿Está seguro que desea eliminar este carro?</string>
     <string name="opcion_si">Si</string>
     <string name="opcion_no">No</string>
+    <string name="mensaje_error_placa">Digite la placa</string>
+    <string name="mensaje_error_color">Digite el color</string>
+    <string name="mensaje_error_marca">Digite la marca</string>
+    <string name="mensaje_error_modelo">Digite el modelo</string>
     <string-array name="motores">
         <item>@string/motor_gasolina</item>
         <item>@string/motor_diesel</item>

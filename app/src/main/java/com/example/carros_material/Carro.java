@@ -1,6 +1,7 @@
 package com.example.carros_material;
 
 
+import java.util.ArrayList;
 
 public class Carro {
     private String placa;
@@ -95,4 +96,10 @@ public class Carro {
     public void eliminar(){
         Datos.eliminar(this);
     }
+
+    public int buscar(){
+        return Datos.buscar(this);
+    }
+
+
 }

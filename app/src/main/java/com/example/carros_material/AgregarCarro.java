@@ -1,5 +1,6 @@
 package com.example.carros_material;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -11,8 +12,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -28,12 +36,15 @@ public class AgregarCarro extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ArrayList<Integer> fotos;
     private StorageReference storageReference;
+    private DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_carro);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         placa = findViewById(R.id.txtPlaca);
         color = findViewById(R.id.txtColor);
@@ -50,6 +61,10 @@ public class AgregarCarro extends AppCompatActivity {
         fotos.add(R.drawable.img3);
 
         storageReference = FirebaseStorage.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Carros");
+
+
+
     }
 
 
@@ -57,34 +72,83 @@ public class AgregarCarro extends AppCompatActivity {
         String plac, col, marc, model, mot = "", id;
         int foto, op;
         Carro carro;
-        InputMethodManager imp = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        plac = placa.getText().toString();
-        col = color.getText().toString();
-        marc = marca.getText().toString();
-        model = modelo.getText().toString();
-        op = combo_motores.getSelectedItemPosition();
-        foto = foto_aleatoria();
-        id = Datos.getId();
 
-        if(op == 0){
-            mot = "Gasolina";
-        }else {
-            if (op == 1) {
-                mot = "Diesel";
-            } else{
-                 if (op == 2) {
-                    mot = "Gas";
-                 }
+        InputMethodManager imp = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            id = Datos.getId();
+            plac = placa.getText().toString();
+            col = color.getText().toString();
+            marc = marca.getText().toString();
+            model = modelo.getText().toString();
+            op = combo_motores.getSelectedItemPosition();
+            foto = foto_aleatoria();
+
+
+            if (op == 0) {
+                mot = "Gasolina";
+            } else {
+                if (op == 1) {
+                    mot = "Diesel";
+                } else {
+                    if (op == 2) {
+                        mot = "Gas";
+                    }
+                }
             }
+
+
+            carro = new Carro(plac, col, marc, mot, model, foto, id);
+
+
+                if (validar()) {
+
+                    if(carro.buscar()==0) {
+                        carro.guardar();
+                        subir_foto(id, foto);
+                        limpiar();
+                        imp.hideSoftInputFromWindow(placa.getWindowToken(), 0);
+                        Snackbar.make(v, getString(R.string.mensaje_guardar), Snackbar.LENGTH_LONG).show();
+                    }
+                    else{
+                        placa.setError("Carro ya existe con esa placa");
+                        placa.requestFocus();
+                    }
+                }
+
+    }
+
+    public boolean validar(){
+        String pla;
+
+
+        int año_modelo;
+        if(placa.getText().toString().isEmpty()){
+            placa.setError(getString(R.string.mensaje_error_placa));
+            placa.requestFocus();
+            return false;
+        }else{
+            if(color.getText().toString().isEmpty()){
+                color.setError(getString(R.string.mensaje_error_color));
+                color.requestFocus();
+                return false;
+            }else{
+                if(marca.getText().toString().isEmpty()){
+                    marca.setError(getString(R.string.mensaje_error_marca));
+                    marca.requestFocus();
+                    return false;
+                }else{
+                    if(modelo.getText().toString().isEmpty()){
+                        modelo.setError(getString(R.string.mensaje_error_modelo));
+                        modelo.requestFocus();
+                        return false;
+                    }
+                }
+            }
+
         }
 
 
-        carro = new Carro(plac, col, marc, mot, model, foto, id);
-        carro.guardar();
-        subir_foto(id, foto);
-        limpiar();
-        imp.hideSoftInputFromWindow(placa.getWindowToken(),0);
-        Snackbar.make(v,getString(R.string.mensaje_guardar), Snackbar.LENGTH_LONG).show();
+        return true;
     }
 
     public void subir_foto(String id, int foto){

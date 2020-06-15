@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements AdaptadorCarro.On
                 }
                 adapter.notifyDataSetChanged();
                 Datos.setCarros(carros);
+
+                Log.i("Tamaño de carros: "+carros.size(),"Tamaño");
+                Log.i("Obtener "+Datos.obtener().size(),"Obtener");
             }
 
             @Override
