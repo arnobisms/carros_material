@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "909567096942",
+    "firebase_url": "https://carrosmaterial-487ba.firebaseio.com",
+    "project_id": "carrosmaterial-487ba",
+    "storage_bucket": "carrosmaterial-487ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909567096942:android:2db5f967e20974a02bce7f",
+        "android_client_info": {
+          "package_name": "com.example.carros_material"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909567096942-kc9lh70qig2cppvqprjnv0vj0mvidgtp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.carros_material",
+            "certificate_hash": "d85d0cf4910b270fd56e4aba8fc210bd6327d1dd"
+          }
+        },
+        {
+          "client_id": "909567096942-spnbtmrrcel36hr193gdeg7n0q5v6fu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvM42pjrdN9_XMxmHkIDBkFyjqqKhSs0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909567096942-spnbtmrrcel36hr193gdeg7n0q5v6fu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
